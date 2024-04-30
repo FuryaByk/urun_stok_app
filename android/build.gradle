@@ -1,0 +1,33 @@
+buildscript {
+    repositories {
+        maven { url "http://jcenter.bintray.com"}
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+    }
+}
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        mavenCentral()
+        jcenter{ url "http://jcenter.bintray.com/" }
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
